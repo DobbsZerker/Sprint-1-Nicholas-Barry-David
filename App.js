@@ -13,7 +13,9 @@ switch (myArgs[0]) {
         break;
     case 'config':
         if(DEBUG) console.log(myArgs[0], ' - display the configuration file');
-        configApp();
+        let viewConfig = fs.readFileSync('config.json');
+        let viewConfigString = JSON.parse(viewConfig)
+        console.log(viewConfigString)
         break;
     case 'token':
     case 't':
