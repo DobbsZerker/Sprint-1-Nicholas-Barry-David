@@ -12,7 +12,7 @@ switch (myArgs[0]) {
         initializeApp();
         break;
     case 'config':
-        if(DEBUG) console.log(myArgs[0], ' - initialize the app.');
+        if(DEBUG) console.log(myArgs[0], ' - Config files - show, edit, reset.');
         configApp();
         break;
     case 'token':
