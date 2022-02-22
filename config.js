@@ -52,6 +52,26 @@ function configApp() {
 
     } 
 
+    function resetConfig(){
+        const configReset = { 
+            name: 'AppConfigCLI',
+            version: '1.0.0',
+            description: 'The Command Line Interface (CLI) for the App.',
+            main: 'App.js',
+            superuser: 'admin'
+        };
+        try {
+            let data = JSON.stringify(configReset, null, 2);
+            fs.writeFile('config.json', data, (err) => {
+                if(DEBUG) console.log('Data written to config.json file');
+            });
+            
+        }
+        catch(err) {
+            console.error(err);
+        }
+    }
+
 
 module.exports ={ 
     configApp,
