@@ -58,18 +58,16 @@ function createInit() {
             if(err) console.log(err);
             else if(DEBUG) console.log('Data written to config.txt file');
         });
-    } else {
-        fs.mkdir(path.join(__dirname, 'views'), (err) => {
-            
-            if(err) console.log(err);
-            else if(DEBUG) console.log('Directory created.');
-            
-        
-        });
-        
-        
     }
-}
+    let tokensjson = "[]"
+    if(fs.existsSync(path.join(__dirname, './users'))) {
+        fs.writeFile(path.join(__dirname, 'users', 'tokens.json'), tokensjson,  (err) => {
+            if(err) console.log(err);
+            else if(DEBUG) console.log('tokens.json file created');
+        });
+    
+    } 
+ }
 
 
 function createFolder() {
