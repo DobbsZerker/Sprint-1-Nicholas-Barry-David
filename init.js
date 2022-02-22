@@ -11,6 +11,16 @@ App init --all          creates the folder structure and config file
 App init --mk           creates the folder structure
 App init --cat          creates the config file with default settings`;
 
+let configUsage = `
+
+App config <command>
+
+Usage:
+
+App config --show       Shows the config file
+App init --set          Sets the Config files 
+App init --reset        Resets the config file with default settings`;
+
 function initializeApp() {
 
 const myArgs = process.argv.slice(2);
@@ -41,6 +51,12 @@ function createInit() {
         fs.writeFile(path.join(__dirname, 'views', 'init.txt'), init, (err) => {
             if(err) console.log(err);
             else if(DEBUG) console.log('Data written to init.txt file');
+        });
+    }
+    if(fs.existsSync(path.join(__dirname, './views'))) {
+        fs.writeFile(path.join(__dirname, 'views', 'config.txt'), configUsage, (err) => {
+            if(err) console.log(err);
+            else if(DEBUG) console.log('Data written to config.txt file');
         });
     } else {
         fs.mkdir(path.join(__dirname, 'views'), (err) => {

@@ -1,0 +1,9 @@
+
+
+App config <command>
+
+Usage:
+
+App config --show       Shows the config file
+App init --set          Sets the Config files 
+App init --reset        Resets the config file with default settings
