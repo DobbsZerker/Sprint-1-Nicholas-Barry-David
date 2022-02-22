@@ -1,0 +1,17 @@
+{
+  "name": "sprint-1-nicholas-barry-david",
+  "version": "1.0.0",
+  "description": "Sprint-1",
+  "main": "index.js",
+  "dependencies": {
+    "crc": "^4.1.0",
+    "crc-32": "^1.2.1",
+    "date-fns": "^2.28.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicholas-Barry-David",
+  "license": "ISC"
+}
