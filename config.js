@@ -1,10 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-
+const myArgs = process.argv.slice(2);
 function configApp() {
 
-    const myArgs = process.argv.slice(2);
+    
         switch (myArgs[1]) {
             case '--show':
                 showConfig();
@@ -30,6 +30,25 @@ function configApp() {
     }
 
     function setConfig() {
+        let configfile = fs.readFileSync('config.json');
+        // if(error) throw (error);
+        if(DEBUG) console.log(JSON.parse(configfile))
+        let data = JSON.parse(configfile)
+        for (let key of Object.keys(data)){
+            if (key === myArgs[2]) {
+                data[key] = myArgs[3];
+                match = true;
+            }
+        }
+        if (!match) {
+            console.log(`invalid key: ${myArgs[2]}, try another`)
+        }
+        if(DEBUG) console.log(data);
+        configfile = JSON.stringify (data, null, 2);
+        fs.writeFile(__dirname + '/config.json', configfile, (error) =>{
+            // if (error) throw error;
+            if(DEBUG) console.log('config file updated.');
+        })
 
     } 
 
