@@ -22,7 +22,7 @@ switch (myArgs[0]) {
         break;  
     case 'help':
     default:
-        fs.readFile(__dirname + "/usage.txt", (error, data) => {
+        fs.readFile(__dirname + '/views/usage.txt', (error, data) => {
             if(error) throw error;
             console.log(data.toString());
         });

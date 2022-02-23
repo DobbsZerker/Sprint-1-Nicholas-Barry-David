@@ -1,0 +1,25 @@
+
+App init <command>
+
+Usage:
+
+App init --all          creates the folder structure and config file
+App init --mk           creates the folder structure
+App init --cat          creates the config file with default settings
+
+App config <command>
+
+Usage:
+
+App config --show       Shows the config file
+App config --set        Sets the Config files 
+App config --reset      Resets the config file with default settings
+
+App token <command>
+
+Usage:
+
+App token --show       Shows the config file
+App token --add        Sets the Config files 
+App token --update     Resets the config file with default settings
+app token --token      Generate a new token for the user

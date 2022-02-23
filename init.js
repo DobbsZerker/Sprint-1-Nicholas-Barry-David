@@ -32,6 +32,33 @@ App token --add        Sets the Config files
 App token --update     Resets the config file with default settings
 app token --token      Generate a new token for the user`;
 
+
+let usagetxt = `
+App init <command>
+
+Usage:
+
+App init --all          creates the folder structure and config file
+App init --mk           creates the folder structure
+App init --cat          creates the config file with default settings
+
+App config <command>
+
+Usage:
+
+App config --show       Shows the config file
+App config --set        Sets the Config files 
+App config --reset      Resets the config file with default settings
+
+App token <command>
+
+Usage:
+
+App token --show       Shows the config file
+App token --add        Sets the Config files 
+App token --update     Resets the config file with default settings
+app token --token      Generate a new token for the user`
+
 function initializeApp() {
 
 const myArgs = process.argv.slice(2);
@@ -76,6 +103,13 @@ function createInit() {
             else if(DEBUG) console.log('Data written to token.txt file');
         });
     }
+    if(fs.existsSync(path.join(__dirname, './views'))) {
+        fs.writeFile(path.join(__dirname, 'views', 'usage.txt'), usagetxt, (err) => {
+            if(err) console.log(err);
+            else if(DEBUG) console.log('Data written to token.txt file');
+        });
+    }
+    
     let tokensjson = "[]"
     if(!fs.existsSync(__dirname, '/users/tokens.json')) {
         fs.writeFile(path.join(__dirname, 'users', 'tokens.json'), tokensjson,  (err) => {
