@@ -18,8 +18,19 @@ App config <command>
 Usage:
 
 App config --show       Shows the config file
-App init --set          Sets the Config files 
-App init --reset        Resets the config file with default settings`;
+App config --set        Sets the Config files 
+App config --reset      Resets the config file with default settings`;
+
+let tokenUsage = `
+
+App token <command>
+
+Usage:
+
+App token --show       Shows the config file
+App token --add        Sets the Config files 
+App token --update     Resets the config file with default settings
+app token --token      Generate a new token for the user`;
 
 function initializeApp() {
 
@@ -59,14 +70,23 @@ function createInit() {
             else if(DEBUG) console.log('Data written to config.txt file');
         });
     }
+    if(fs.existsSync(path.join(__dirname, './views'))) {
+        fs.writeFile(path.join(__dirname, 'views', 'token.txt'), tokenUsage, (err) => {
+            if(err) console.log(err);
+            else if(DEBUG) console.log('Data written to token.txt file');
+        });
+    }
     let tokensjson = "[]"
-    if(fs.existsSync(path.join(__dirname, './users'))) {
+    if(!fs.existsSync(__dirname, '/users/tokens.json')) {
         fs.writeFile(path.join(__dirname, 'users', 'tokens.json'), tokensjson,  (err) => {
             if(err) console.log(err);
-            else if(DEBUG) console.log('tokens.json file created');
+            if(DEBUG) console.log('array made')
+            
         });
     
-    } 
+    } else{
+        if(DEBUG) console.log('Array already made')
+    }
  }
 
 

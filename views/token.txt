@@ -1,0 +1,10 @@
+
+
+App token <command>
+
+Usage:
+
+App token --show       Shows the config file
+App token --add        Sets the Config files 
+App token --update     Resets the config file with default settings
+app token --token      Generate a new token for the user

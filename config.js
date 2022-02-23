@@ -31,6 +31,7 @@ function configApp() {
 
     function setConfig() {
         let configfile = fs.readFileSync('config.json');
+        let match = false;
         // if(error) throw (error);
         if(DEBUG) console.log(JSON.parse(configfile))
         let data = JSON.parse(configfile)
