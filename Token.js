@@ -200,5 +200,5 @@ function showTokens(){
    
 
 module.exports ={ 
-    tokenApp,
+    tokenApp, genToken,
 }

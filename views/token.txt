@@ -1,5 +1,4 @@
 
-
 App token --show       Shows the  tokens and users
 App token --add        Adds a user 
 App token --gentoken      Generate a new token for the user
