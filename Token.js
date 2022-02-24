@@ -28,9 +28,11 @@ function tokenApp() {
             case '--update':
                 updateData(myArgs);
                 if(DEBUG) console.log('tokenApp.updateData() --update');
-            case '--token':
-                genToken(myArgs[2]);
-                if(DEBUG) console.log('tokenApp.genToken() --token')
+                break;
+            case '--updatetoken':
+                updateToken(myArgs);
+                if(DEBUG) console.log('tokenApp.updateToken() --updatetoken')
+                break;
                
             default:
                 if(DEBUG) console.log('Token - default');
@@ -51,20 +53,20 @@ function adduser(user) {
     let newToken = JSON.parse(`{
         "created": "2022-01-01 10:30:00",
         "username": "username",
-        "phone": "7091234567",
+        "phone": "null",
         "token": "token",
         "expires": "2022-01-04 10:30:00",
-        "confirmed": "tbd" 
-        
+        "confirmed": "tbd", 
+        "email": "null"
     
     }`)
     
-    newToken.created = now;
+    newToken.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
     newToken.username = username;
     newToken.email = "null";
     newToken.phone = "null";
     newToken.token = crc;
-    newToken.expires = expires;
+    newToken.expires = `${format(expires, 'yyyy-MM-dd HH:mm:ss')}`;
     
     if(fs.existsSync(path.join(__dirname, './users'))){
         let userTokens = fs.readFileSync(path.join(__dirname, 'users', 'tokens.json'));
@@ -82,7 +84,7 @@ function adduser(user) {
 } 
 
 function updateData(myArgs) {
-    if(DEBUG) console.log('token.updateData()');
+    if(DEBUG) console.log('token.update()');
     if(DEBUG) console.log(myArgs);
     fs.readFile(__dirname + '/users/tokens.json', (error, data) =>{
         if(error) throw error;
@@ -113,17 +115,46 @@ function updateData(myArgs) {
 
 }
 
+function updateToken(myArgs) {
+    if(DEBUG) console.log('token.updateToken()');
+    if(DEBUG) console.log(myArgs);
+    let now = new Date();
+    let expires = addDays(now, 3)
+    fs.readFile(__dirname + '/users/tokens.json', (error, data) =>{
+        if(error) throw error;
+        let tokens = JSON.parse(data);
+        tokens.forEach(object =>{
+            if(object.username === myArgs[2]) {
+                if(DEBUG) console.log(myArgs[2]);
+                object.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
+                object.token = crc32(object.username).toString(16);
+                object.expires = `${format(expires, 'yyyy-MM-dd HH:mm:ss')}`; 
+                userTokens = JSON.stringify(tokens);
+                fs.writeFile(__dirname + '/users/tokens.json', userTokens, (err) => {
+                    if(err) console.log(err);
+                    else {
+                        console.log(`data record for ${myArgs[2]} was updated with ${object.token}.`)
+                    }
+                })
+              
+            }
+        });
+       
+    })
+
+}
+
 function genToken(username){
-    if(DEBUG) console.log('token.genToken');
+    if(DEBUG) console.log('token.genToken()');
 
     let newToken = JSON.parse(`{
         "created": "2022-01-01 10:30:00",
         "username": "username",
-        "phone": "7091234567",
+        "phone": "null",
         "token": "token",
         "expires": "2022-01-04 10:30:00",
-        "confirmed": "tbd" 
-        
+        "confirmed": "tbd",
+        "email": "null"
     
     }`);
     let now = new Date();

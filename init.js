@@ -23,14 +23,11 @@ App config --reset      Resets the config file with default settings`;
 
 let tokenUsage = `
 
-App token <command>
-
-Usage:
-
-App token --show       Shows the config file
-App token --add        Sets the Config files 
-App token --update     Resets the config file with default settings
-app token --token      Generate a new token for the user`;
+App token --show       Shows the  tokens and users
+App token --add        Adds a user 
+App token --gentoken      Generate a new token for the user
+App token --update phone <user> Updates phone number of user
+App token --update email <user> Updates email address of user`;
 
 
 let usagetxt = `
@@ -54,10 +51,11 @@ App token <command>
 
 Usage:
 
-App token --show       Shows the config file
-App token --add        Sets the Config files 
-App token --update     Resets the config file with default settings
-app token --token      Generate a new token for the user`
+App token --show       Shows the  tokens and users
+App token --add        Adds a user 
+App token --gentoken      Generate a new token for the user
+App token --update phone <user> Updates phone number of user
+App token --update email <user> Updates email address of user`
 
 function initializeApp() {
 
