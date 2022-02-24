@@ -179,9 +179,9 @@ function genToken(username){
             }
             
         })
-        return newToken.token;
+        
     })
-
+    return newToken.token;
 }
 
 function showTokens(){
