@@ -41,10 +41,12 @@ function tokenApp() {
                 updateToken(myArgs);
                 if(DEBUG) console.log('tokenApp.updateToken() --updatetoken')
                 break;
-            
-               
-            default:
-                if(DEBUG) console.log('Token - default');
+            case '--help':
+                default:
+                fs.readFile(__dirname + '/views/token.txt', (error, data) => {
+                if(error) throw error;
+                console.log(data.toString());
+                });
         }
     }
 

@@ -38,11 +38,12 @@ App config --reset      Resets the config file with default settings`;
 
 
 let tokenUsage = `
-App token --show       Shows the  tokens and users
 App token --add        Adds a user 
 App token --gentoken      Generate a new token for the user
 App token --update phone <user> Updates phone number of user
-App token --update email <user> Updates email address of user`;
+App token --update email <user> Updates email address of user
+App token --show all        Shows all users and tokens
+App token --search <User, phone or email>`;
 
 
 let usagetxt = `
@@ -90,8 +91,12 @@ const myArgs = process.argv.slice(2);
         case '--mk':
         createFolder()
         if(DEBUG) console.log('initializeApp.createFolder() --mk');
-        default:
-            if(DEBUG) console.log('initializeApp - default');
+        case '--help':
+            default:
+            fs.readFile(__dirname + '/views/init.txt', (error, data) => {
+            if(error) throw error;
+            console.log(data.toString());
+        });
             myEmitter.emit("log", ' fingers crossed ', "Fall Back");
     }
 }

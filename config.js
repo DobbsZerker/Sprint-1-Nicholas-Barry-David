@@ -17,8 +17,12 @@ function configApp() {
             case '--reset':
             resetConfig();
             if(DEBUG) console.log('configApp.resetConfig() --reset');
+            case '--help':
             default:
-                if(DEBUG) console.log('Config - default');
+            fs.readFile(__dirname + '/views/config.txt', (error, data) => {
+            if(error) throw error;
+            console.log(data.toString());
+        });
         }
     }
 

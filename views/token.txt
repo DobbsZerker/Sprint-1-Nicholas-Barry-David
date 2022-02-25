@@ -1,6 +1,7 @@
 
-App token --show       Shows the  tokens and users
 App token --add        Adds a user 
 App token --gentoken      Generate a new token for the user
 App token --update phone <user> Updates phone number of user
 App token --update email <user> Updates email address of user
+App token --show all        Shows all users and tokens
+App token --search <User, phone or email>
