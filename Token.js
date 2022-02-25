@@ -3,11 +3,19 @@ const { format } = require('date-fns');
 const fs = require('fs');
 const { dirname } = require('path');
 const path = require('path');
+const { DoublyLinkedList } = require('./doublyLinkedListSprint')
+const { Node } = require ('./doublyLinkedListSprint')
+const  { ModelObject } = require('./doublyLinkedListSprint')
+const  sortedSet = require('sorted-set');
+const dll = new DoublyLinkedList();
+
+
 function addDays(date, days) {
         var result = new Date(date);
         result.setDate(result.getDate() + days);
         return result;
     }
+
 
 
 
@@ -18,7 +26,7 @@ function tokenApp() {
     
         switch (myArgs[1]) {
             case '--show':
-                showTokens();
+                showTokens(myArgs[2]);
                 if(DEBUG) console.log('display the tokens');
                 break;
             case '--add':
@@ -33,6 +41,7 @@ function tokenApp() {
                 updateToken(myArgs);
                 if(DEBUG) console.log('tokenApp.updateToken() --updatetoken')
                 break;
+            
                
             default:
                 if(DEBUG) console.log('Token - default');
@@ -46,6 +55,7 @@ function tokenApp() {
 
 function adduser(user) {
 
+
     let username = user;
     let crc = crc32(username).toString(16);
     let now = new Date();
@@ -56,10 +66,11 @@ function adduser(user) {
         "phone": "null",
         "token": "token",
         "expires": "2022-01-04 10:30:00",
-        "confirmed": "tbd", 
+        "confirmed": "tbd",
         "email": "null"
     
-    }`)
+    }`);
+    console.log(newToken)
     
     newToken.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
     newToken.username = username;
@@ -67,6 +78,10 @@ function adduser(user) {
     newToken.phone = "null";
     newToken.token = crc;
     newToken.expires = `${format(expires, 'yyyy-MM-dd HH:mm:ss')}`;
+
+    
+
+
     
     if(fs.existsSync(path.join(__dirname, './users'))){
         let userTokens = fs.readFileSync(path.join(__dirname, 'users', 'tokens.json'));
@@ -74,9 +89,11 @@ function adduser(user) {
         let tokens = JSON.parse(userTokens);
         tokens.push(newToken);
         userTokens = JSON.stringify(tokens);
+        dll.insertObject(newToken);
+        console.log(dll);
         fs.writeFile(path.join(__dirname, 'users', 'tokens.json'), userTokens,  (err) => {
           if(err) console.log(err);
-         // else if(DEBUG) console.log('tokens.json file created');
+         else if(DEBUG) console.log('tokens.json file created');
      });
     }
    
@@ -105,6 +122,8 @@ function updateData(myArgs) {
             }
         });
         userTokens = JSON.stringify(tokens);
+
+
         fs.writeFile(__dirname + '/users/tokens.json', userTokens, (err) => {
             if(err) console.log(err);
             else {
@@ -170,7 +189,7 @@ function genToken(username){
         let tokens = JSON.parse(data);
         tokens.push(newToken);
         userTokens = JSON.stringify(tokens);
-
+        dll.insertObject(newToken);
         fs.writeFile(__dirname + '/users/tokens.json', userTokens, (error) =>{
             if(error) console.log(error);
             else {
@@ -189,15 +208,28 @@ function showTokens(){
     fs.readFile(__dirname + '/users/tokens.json', (error, data)=>{
         if(error) throw error;
         let tokens = JSON.parse(data);
-        console.log(' Users and Tokens:')
-        tokens.forEach(object => {
-            console.log('--> User: ' + object.username + ' Token: ' + object.token);
-        })
+        switch (myArgs[2]) {
+            case 'all':
+                console.log(' Users and Tokens:')
+                tokens.forEach(object => {
+                console.log('--> User: ' + object.username + ' Token: ' + object.token);
+                })
+                break;
+            case 'search':
+                
+                  dll.searchForItem(myArgs[3])
+                  console.log(myArgs[3])
+                break;
+                default:       
+
+
+            }
+        
     })
 
 }
-
    
+
 
 module.exports ={ 
     tokenApp, genToken,
