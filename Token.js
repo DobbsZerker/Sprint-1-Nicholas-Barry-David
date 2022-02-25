@@ -216,9 +216,11 @@ function showTokens(){
                 })
                 break;
             case 'search':
-                
-                  dll.searchForItem(myArgs[3])
-                  console.log(myArgs[3])
+                tokens.forEach(object => {
+                    dll.insertObject(object)
+                })
+                  let result = dll.searchForItem(myArgs[3])
+                  console.log(result[0].token)
                 break;
                 default:       
 

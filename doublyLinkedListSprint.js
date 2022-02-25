@@ -45,6 +45,7 @@ class DoublyLinkedList {
   searchForItem(item) {
     const SortedSet = require("sorted-set");
     var set = new SortedSet();
+    console.log(item)
 
     let current = this.head;
     if (this.head == null) {
@@ -53,14 +54,14 @@ class DoublyLinkedList {
     }
     while (current != null) {
       if (
-        current.username.toLowerCase().includes(item) ||
-        current.phone.includes(item) || current.email.includes(item)
+        current.personObject.username.toLowerCase().includes(item) ||
+        current.personObject.phone.includes(item) || current.personObject.email.includes(item)
       ) {
-        set.add(current.ModelObject);
+        set.add(current.personObject);
       }
       current = current.next;
     }
-    return set;
+    return set.slice(0);
   }
 
   
